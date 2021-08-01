@@ -132,17 +132,24 @@ cars %>%
 
 # codeexplode in action
 
-Now let's also look at what codeexplode does with this .Rmd.  I rendered the exploded .Rmd outside this file, because if felt to mind-bendy to do here.  The resultant flipbook (.html) is hosted on github, and we want to include it.
+Now let's also look at what codeexplode does with this .Rmd.  
+
+``` r
+codeexplode::rmd_code_explode("README.Rmd",
+  rmd_output = "docs/readme_exploded.Rmd")
+```  
+
+I rendered the exploded and rendered the .Rmd outside this file, because if felt to mind-bendy to do here.  The resultant flipbook (.html) is shown here.
 
 ---
 
-`r flipbookr::chunk_reveal("exploding_readme")`
+<div style="position:relative;padding-top:56.25%;">
 
----
+<iframe src="https://evamaerey.github.io/codeexplode/readme_exploded.html" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" allowtransparency="true">
+</iframe>
 
-```{r exploding_readme, include = FALSE}
-"https://evamaerey.github.io/codeexplode/readme_exploded.html" %>% 
-knitr::include_url()
-```
+</div>
+
+
 
 

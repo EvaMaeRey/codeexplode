@@ -165,7 +165,7 @@ magick::image_read("https://images.unsplash.com/photo-1614176710432-81bdf52f120f
 #&gt;    [25] 08 02 00 00 00 c9 44 87 66 00 00 00 01 73 52 47 42 00 ae ce 1c e9 00 00
 #&gt;    [49] 00 06 62 4b 47 44 00 ff 00 ff 00 ff a0 bd a7 93 00 00 00 09 70 48 59 73
 #&gt;    [73] 00 00 0b 12 00 00 0b 12 01 d2 dd 7e fc 00 00 00 07 74 49 4d 45 07 e5 08
-#&gt;    [97] 01 01 22 18 b7 8d b8 74 00 00 80 00 49 44 41 54 78 da ec fd 49 97 e4 38
+#&gt;    [97] 01 02 11 2b fe 70 02 0b 00 00 80 00 49 44 41 54 78 da ec fd 49 97 e4 38
 #&gt;   [121] 92 27 0e 8a 00 24 75 b1 c5 97 88 cc ac aa ae ee 7e ff ef 7f 9e eb 5c e6
 #&gt;   [145] 1b cc 9b 39 75 4d f7 4c 77 65 46 66 7a b8 bb ed ba 90 80 cc 41 08 a1 10
 #&gt;   [169] 00 a9 54 35 b5 c5 3d 28 2f 9e 87 1a 95 4a 0a 36 c1 0f b2 e2 ff ed ff fe
@@ -5077,73 +5077,21 @@ cars %&gt;%
 
 # codeexplode in action
 
-Now let's also look at what codeexplode does with this .Rmd.  I rendered the exploded .Rmd outside this file, because if felt to mind-bendy to do here.  The resultant flipbook (.html) is hosted on github, and we want to include it.
+Now let's also look at what codeexplode does with this .Rmd.  
 
----
+``` r
+codeexplode::rmd_code_explode("README.Rmd",
+  rmd_output = "docs/readme_exploded.Rmd")
+```  
 
-count: false
- 
+I rendered the exploded and rendered the .Rmd outside this file, because if felt to mind-bendy to do here.  The resultant flipbook (.html) is shown here.
 
-.panel1-exploding_readme-auto[
+&lt;div style="position:relative;padding-top:56.25%;"&gt;
 
-```r
-*"https://evamaerey.github.io/codeexplode/readme_exploded.html"
-```
-]
- 
-.panel2-exploding_readme-auto[
+&lt;iframe src="https://evamaerey.github.io/codeexplode/readme_exploded.html" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" allowtransparency="true"&gt;
+&lt;/iframe&gt;
 
-```
-#&gt; [1] "https://evamaerey.github.io/codeexplode/readme_exploded.html"
-```
-]
-
----
-count: false
- 
-
-.panel1-exploding_readme-auto[
-
-```r
-"https://evamaerey.github.io/codeexplode/readme_exploded.html" %&gt;%
-*knitr::include_url()
-```
-]
- 
-.panel2-exploding_readme-auto[
-&lt;iframe src="https://evamaerey.github.io/codeexplode/readme_exploded.html" width="100%" height="400px"&gt;&lt;/iframe&gt;
-]
-
-&lt;style&gt;
-.panel1-exploding_readme-auto {
-  color: black;
-  width: 38.6060606060606%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel2-exploding_readme-auto {
-  color: black;
-  width: 59.3939393939394%;
-  hight: 32%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-.panel3-exploding_readme-auto {
-  color: black;
-  width: NA%;
-  hight: 33%;
-  float: left;
-  padding-left: 1%;
-  font-size: 80%
-}
-&lt;/style&gt;
-
-
-
----
+&lt;/div&gt;
 
 
 
