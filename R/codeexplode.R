@@ -1,9 +1,9 @@
 write_yaml <- function(){
 
 '---
-title: "A minimal flipbook"
-subtitle: "With flipbookr and xaringan"
-author: "You!"
+title: "Exploded code"
+subtitle: "Using flipbookr and xaringan"
+author: "Me"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -98,7 +98,9 @@ prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = "e
 #' @export
 #'
 #' @examples
-rmd_code_explode <- function(rmd_path = "README.Rmd", rmd_output = "explodedcode.Rmd", render = F){
+rmd_code_explode <- function(rmd_path = "README.Rmd",
+                             rmd_output = "explodedcode.Rmd",
+                             render = F){
 
   rmd_path %>%
     rmd_read_as_table() %>%
