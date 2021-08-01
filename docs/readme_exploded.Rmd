@@ -1,0 +1,148 @@
+---
+title: "Exploded code"
+subtitle: "Using flipbookr and xaringan"
+author: "Me"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+---
+
+`r flipbookr::chunk_reveal("setup")`
+
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(tidyverse)
+```
+
+# codeexplode
+
+---
+
+`r flipbookr::chunk_reveal("advert")`
+
+---
+
+```{r advert, warning=F, echo=F, include = FALSE}
+library(ggstamp)
+magick::image_read("https://images.unsplash.com/photo-1614176710432-81bdf52f120f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80") %>%
+  magick::image_write(format = "png") %>%
+  ggbackdrop(png = .) +
+  stamp_label(label = "pipelines",
+              label.size = 1.5,
+             x = 20, y = 10, size = 9) +
+  stamp_arrow(x = 27, y = 16, size = 4, 
+              headlength = .1,
+              type = "closed",angle = 20,
+              xend = 48, yend = 40,
+              color = "slateblue") + 
+  stamp_text(label = "flipbooks",
+             x = 65, y = 50, 
+             size = 17) +
+  stamp_curve(y = 35+10, 
+              xend = 30:20 + 60, 
+              yend = 40:50 + 10,
+              curvature = .1, 
+              x = 44,
+              alpha = .1) + 
+  stamp_polygon(x0 = 80, y0 = 20, 
+                radius = 14,
+                fill = "brown",
+                alpha = .7,
+                size = 1.5,
+                color = "brown") + 
+  stamp_text(label = "{codeexplode}",
+               fontface = "bold",
+               x = 80, y = 20,
+               size = 5, 
+               color = "oldlace") + 
+  stamp_text(x = 99, angle = 90, 
+             y = 20,
+             label = "photo credit, Daniele Levis Pelusi",
+             size = 3,
+             color = "grey70") +
+  theme_void()
+```
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+
+flipbooks -- go-at-your-own-pace, code and output animations -- have up to this point been *crafted* for education and demonstration purposes.  
+
+
+The flipbook format doesn't make much sense for getting actual work done.  It is inefficient.  We repeat steps (step 1, steps 1-2, steps 1-3) to create the animation.  
+
+However, code that isn't developed with a flipbook end presentation in mind might also might be easier to consume in the flipbook format.  It might be transformed into a educational or code-review tool on occasion.  
+
+---
+
+Right now, {codeexplode} is not that clever.  It work best for auto-type reveal, where code is written in a sequential way and you would be able to see outputs as you go. (i.e. right assignment).
+
+---
+
+## Installation
+
+And the development version from [GitHub](https://github.com/) with `devtools::install_github("EvaMaeRey/codeexplode")`
+
+---
+
+
+## Code that plays nice with codeexplode
+
+The following code works well because it is piped, and most pause points (where parentheses are balanced at the end of a line) will produce an output
+
+---
+
+`r flipbookr::chunk_reveal("cars")`
+
+---
+
+```{r cars, include = FALSE}
+summary(cars) ->
+  summary_cars
+
+library(ggplot2) 
+cars %>% 
+  ggplot() + 
+  aes(x = speed, y = dist) + 
+  geom_point(size = 4) + 
+  aes(color = speed) + 
+  scale_color_viridis_c()
+
+```
+
+---
+
+# codeexplode in action
+
+Now let's also look at what codeexplode does with this .Rmd.  I rendered the exploded .Rmd outside this file, because if felt to mind-bendy to do here.  The resultant flipbook (.html) is hosted on github, and we want to include it.
+
+---
+
+`r flipbookr::chunk_reveal("exploding_readme")`
+
+---
+
+```{r exploding_readme, include = FALSE}
+"https://evamaerey.github.io/codeexplode/readme_exploded.html" %>% 
+knitr::include_url()
+```
+
+
