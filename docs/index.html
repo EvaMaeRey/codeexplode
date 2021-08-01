@@ -107,13 +107,14 @@
 <h1 class="hasAnchor">
 <a href="#codeexplode-in-action" class="anchor"></a>codeexplode in action</h1>
 <p>Now let’s also look at what codeexplode does with this .Rmd.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">"README.Rmd"</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>codeexplode<span class="sc">::</span><span class="fu">rmd_code_explode</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rmd_output =</span> <span class="st">"docs/readme_exploded.Rmd"</span>)</span></code></pre></div>
-<p>I rendered the exploded .Rmd outside this file, because if felt to mind-bendy to do here. The resultant flipbook (.html) is hosted on github, and we want to include it.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="st">"https://evamaerey.github.io/codeexplode/readme_exploded.html"</span> <span class="sc">%&gt;%</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_url</span>()</span></code></pre></div>
-<p><a href="https://evamaerey.github.io/codeexplode/readme_exploded.html" target="_blank"><img src="reference/figures/README-exploding_readme-1.png" width="100%"></a></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>codeexplode<span class="sc">::</span><span class="fu">rmd_code_explode</span>(<span class="st">"README.Rmd"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">rmd_output =</span> <span class="st">"docs/readme_exploded.Rmd"</span>)</span></code></pre></div>
+<p>I rendered the exploded and rendered the .Rmd outside this file, because if felt to mind-bendy to do here. The resultant flipbook (.html) is shown here.</p>
+<hr>
+<div style="position:relative;padding-top:56.25%;">
+<iframe src="https://evamaerey.github.io/codeexplode/readme_exploded.html" frameborder="2" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" allowtransparency="true">
+</iframe>
+</div>
 </div>
 
   </div>
