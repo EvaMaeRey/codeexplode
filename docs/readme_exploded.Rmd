@@ -141,7 +141,7 @@ codeexplode::rmd_code_explode("README.Rmd",
 
 I rendered the exploded and rendered the .Rmd outside this file, because if felt to mind-bendy to do here.  The resultant flipbook (.html) is shown here.
 
----
+
 
 <div style="position:relative;padding-top:56.25%;">
 

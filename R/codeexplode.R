@@ -19,14 +19,13 @@ output:
 
 write_inline_chunk_reveal <- function(chunk_name){
 
-paste0('`r flipbookr::chunk_reveal("', chunk_name, '")`')
+paste0('`r flipbookr::chunk_reveal("', chunk_name, '", left_assign = "detect")`')
 
 }
 
 chunks_to_include_equals_false <- function(x){
 
 stringr::str_replace(x, '```{r .+, ', '```')
-
 
 }
 
@@ -38,6 +37,22 @@ rmd_path %>%
     tibble::tibble(lines = .)
 
 }
+
+
+r_read_as_rmd_table <- function(r_script_path = "docs/r_script_test.R"){
+
+  r_script_path %>%
+    read_file() %>%
+    paste("```{r name, include = FALSE}",.,"```", sep = "\n") %>%
+    stringr::str_replace_all("\\n\\n\\n", "\\\n```\\\n\\\n```{r name, include = FALSE}\\\n") %>%
+    read_lines() %>%
+    tibble::tibble(lines = .) %>%
+    dplyr::mutate(is_chunk_start = stringr::str_detect(.data$lines, "^```\\{r name,")) %>%
+    dplyr::mutate(which_chunk = cumsum(.data$is_chunk_start)) %>%
+    dplyr::mutate(lines = stringr::str_replace(.data$lines, "```\\{r name,", paste0("```{r name_", which_chunk, ",")))
+
+}
+
 
 
 rmd_table_remove_yaml <- function(rmd_table = rmd_read_as_table("README.Rmd")){
@@ -87,6 +102,19 @@ prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = "e
 
 }
 
+r_prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = "explodedcode.Rmd"){
+
+  prepped_table %>%
+    # rmd_table_remove_yaml() %>%
+    dplyr::pull(.data$lines) %>%
+    paste(collapse = "\n") ->
+    rmd_body
+
+  paste(write_yaml(), rmd_body, sep = "\n") %>%
+    writeLines(con = rmd_output)
+
+}
+
 
 #' Title
 #'
@@ -106,7 +134,35 @@ rmd_code_explode <- function(rmd_path = "README.Rmd",
     rmd_read_as_table() %>%
     rmd_table_find_chunk_name_set_include_to_false() %>%
     rmd_table_w_chunk_name_add_flip_inline() %>%
-    rmd_table_remove_yaml() %>%
+    rmd_table_remove_yaml() %>%  #needed?
     prepped_table_write_exploded_code_rmd(rmd_output = rmd_output)
 
 }
+
+
+
+
+#' Title
+#'
+#' @param r_script_path
+#' @param rmd_output
+#' @param render
+#'
+#' @return
+#' @export
+#'
+#' @examples
+r_code_explode <- function(r_script_path = "docs/r_script_test.R",
+                           rmd_output = "explodedcode.Rmd",
+                           render = F){
+
+  r_script_path %>%
+    r_read_as_rmd_table() %>%
+    rmd_table_find_chunk_name_set_include_to_false() %>%
+    rmd_table_w_chunk_name_add_flip_inline() %>%
+    # rmd_table_remove_yaml() %>%
+    r_prepped_table_write_exploded_code_rmd(rmd_output = rmd_output)
+
+}
+
+
