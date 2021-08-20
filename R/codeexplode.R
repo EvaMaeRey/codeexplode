@@ -135,7 +135,7 @@ rmd_table_w_chunk_name_add_flip_inline <- function(rmd_table_w_chunk_name){
   rmd_table_w_chunk_name %>%
     dplyr::mutate(lines = ifelse(.data$ind_chunk_start,
                           paste0("---\n\n", write_inline_chunk_reveal(chunk_name = .data$chunk_name),
-                                 "\n\n---\n\n", .data$lines), .data$lines))
+                                 "\n\n\n\n", .data$lines), .data$lines))
 
 }
 
