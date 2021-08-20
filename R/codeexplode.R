@@ -56,7 +56,7 @@ r_read_as_rmd_table <- function(r_script_path = "docs/r_script_test.R"){
   r_script_path %>%
     readr::read_file() %>%
     paste("```{r name, include = FALSE}",.,"```", sep = "\n") %>%
-    stringr::str_replace_all("\\n\\n\\n", "\\\n```\\\n\\\n```{r name, include = FALSE}\\\n") %>%
+    stringr::str_replace_all("\\r\\n\\r\\n\\r\\n|\\n\\n\\n", "\\\n```\\\n\\\n```{r name, include = FALSE}\\\n") %>%
     readr::read_lines() ->
   the_lines
 
