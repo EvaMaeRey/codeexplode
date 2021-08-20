@@ -19,40 +19,42 @@ library(tidyverse)
 
 ```{r advert, warning=F, echo=F}
 library(ggstamp)
-magick::image_read("https://images.unsplash.com/photo-1614176710432-81bdf52f120f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80") %>%
+magick::image_read("https://images.unsplash.com/photo-1557801200-9a8d901ded2a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80") %>%
   magick::image_write(format = "png") %>%
   ggbackdrop(png = .) +
   stamp_label(label = "pipelines",
               label.size = 1.5,
-             x = 20, y = 10, size = 9) +
+             x = 20, y = 10, size = 12) +
   stamp_arrow(x = 27, y = 16, size = 4, 
               headlength = .1,
               type = "closed",angle = 20,
               xend = 48, yend = 40,
               color = "slateblue") + 
-  stamp_text(label = "flipbooks",
-             x = 65, y = 50, 
-             size = 17) +
+  stamp_label(label = "flipbook",
+             x = 65, y = 50, label.size = 2,
+             size = 22, color = "goldenrod3") +
   stamp_curve(y = 35+10, 
               xend = 30:20 + 60, 
               yend = 40:50 + 10,
               curvature = .1, 
               x = 44,
               alpha = .1) + 
-  stamp_polygon(x0 = 80, y0 = 20, 
-                radius = 14,
+  stamp_polygon(x0 = 70, y0 = 20, 
+                radius = 20,
                 fill = "brown",
                 alpha = .7,
                 size = 1.5,
                 color = "brown") + 
-  stamp_text(label = "{codeexplode}",
-               fontface = "bold",
-               x = 80, y = 20,
-               size = 5, 
-               color = "oldlace") + 
+  stamp_label(label = "{codeexplode}",
+              fontface = "bold",
+              x = 70, y = 20,
+              size = 12, 
+              color = "slateblue",
+              label.size = 2
+              ) + 
   stamp_text(x = 99, angle = 90, 
              y = 20,
-             label = "photo credit, Daniele Levis Pelusi",
+             label = "photo credit, Erwan Hesry",
              size = 3,
              color = "grey70") +
   theme_void()
@@ -93,7 +95,7 @@ And the development version from [GitHub](https://github.com/) with `devtools::i
 
 ## Code that plays nice with codeexplode
 
-The following code works well because it is piped, and most pause points (where parentheses are balanced at the end of a line) will produce an output
+The following code works well because it is piped, and most pause points (where parentheses are balanced at the end of a line) will produce an output.
 
 ```{r cars}
 summary(cars) ->

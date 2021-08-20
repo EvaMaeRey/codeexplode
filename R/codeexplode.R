@@ -1,3 +1,5 @@
+#' @importFrom rlang .data
+
 write_yaml <- function(){
 
 '---
@@ -33,23 +35,35 @@ rmd_read_as_table <- function(rmd_path = "README.Rmd"
                               ){
 
 rmd_path %>%
-    readLines() %>%
-    tibble::tibble(lines = .)
+    readLines() ->
+my_lines
+
+    tibble::tibble(lines = my_lines)
 
 }
 
 
+#' Title
+#'
+#' @param r_script_path
+#'
+#' @return
+#' @export
+#'
+#' @importFrom rlang .data
 r_read_as_rmd_table <- function(r_script_path = "docs/r_script_test.R"){
 
   r_script_path %>%
-    read_file() %>%
+    readr::read_file() %>%
     paste("```{r name, include = FALSE}",.,"```", sep = "\n") %>%
     stringr::str_replace_all("\\n\\n\\n", "\\\n```\\\n\\\n```{r name, include = FALSE}\\\n") %>%
-    read_lines() %>%
-    tibble::tibble(lines = .) %>%
+    readr::read_lines() ->
+  the_lines
+
+  tibble::tibble(lines = the_lines) %>%
     dplyr::mutate(is_chunk_start = stringr::str_detect(.data$lines, "^```\\{r name,")) %>%
     dplyr::mutate(which_chunk = cumsum(.data$is_chunk_start)) %>%
-    dplyr::mutate(lines = stringr::str_replace(.data$lines, "```\\{r name,", paste0("```{r name_", which_chunk, ",")))
+    dplyr::mutate(lines = stringr::str_replace(.data$lines, "```\\{r name,", paste0("```{r name_", .data$which_chunk, ",")))
 
 }
 
@@ -116,16 +130,15 @@ r_prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = 
 }
 
 
-#' Title
+#' Rmarkdown file as input, returns rmd prepped to flipbook
 #'
-#' @param rmd_path
-#' @param rmd_output
-#' @param render
+#' @param rmd_path a file path, character string
+#' @param rmd_output a file path, where to save rmd
+#' @param render if true, render
 #'
 #' @return
 #' @export
 #'
-#' @examples
 rmd_code_explode <- function(rmd_path = "README.Rmd",
                              rmd_output = "explodedcode.Rmd",
                              render = F){
@@ -137,6 +150,9 @@ rmd_code_explode <- function(rmd_path = "README.Rmd",
     rmd_table_remove_yaml() %>%  #needed?
     prepped_table_write_exploded_code_rmd(rmd_output = rmd_output)
 
+  if(render == TRUE){
+  rmarkdown::render(rmd_output)
+  }
 }
 
 
@@ -144,14 +160,12 @@ rmd_code_explode <- function(rmd_path = "README.Rmd",
 
 #' Title
 #'
-#' @param r_script_path
-#' @param rmd_output
-#' @param render
+#' @param r_script_path path to .Rmd script
+#' @inheritParams rmd_code_explode
 #'
 #' @return
 #' @export
 #'
-#' @examples
 r_code_explode <- function(r_script_path = "docs/r_script_test.R",
                            rmd_output = "explodedcode.Rmd",
                            render = F){
@@ -162,6 +176,10 @@ r_code_explode <- function(r_script_path = "docs/r_script_test.R",
     rmd_table_w_chunk_name_add_flip_inline() %>%
     # rmd_table_remove_yaml() %>%
     r_prepped_table_write_exploded_code_rmd(rmd_output = rmd_output)
+
+  if(render == TRUE){
+    rmarkdown::render(rmd_output)
+  }
 
 }
 

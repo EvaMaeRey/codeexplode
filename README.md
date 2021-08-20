@@ -51,7 +51,7 @@ And the development version from [GitHub](https://github.com/) with
 
 The following code works well because it is piped, and most pause points
 (where parentheses are balanced at the end of a line) will produce an
-output
+output.
 
 ``` r
 summary(cars) ->
