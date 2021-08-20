@@ -15,7 +15,43 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
----'
+---
+
+
+```{r, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scratch can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = F, warning = FALSE, comment = "", cache = F)
+
+options(tibble.print_min = 55)
+options(knitr.duplicate.label = "allow")
+options(width=300) # prevents data wrapping 
+```
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 40%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+```
+
+'
 
 }
 
