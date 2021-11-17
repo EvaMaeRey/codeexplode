@@ -25,7 +25,7 @@ knitr::opts_chunk$set(fig.width = 6, message = F, warning = FALSE, comment = "",
 
 options(tibble.print_min = 55)
 options(knitr.duplicate.label = "allow")
-options(width=300) # prevents data wrapping 
+options(width=300) # prevents data wrapping
 ```
 
 
@@ -176,8 +176,8 @@ r_prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = 
 #' @export
 #'
 rmd_code_explode <- function(rmd_path = "README.Rmd",
-                             rmd_output = "explodedcode.Rmd",
-                             render = F){
+                             rmd_output = stringr::str_replace(rmd_path, "\\.Rmd$|\\.rmd$", "_flipbook.Rmd"),
+                             render = TRUE){
 
   rmd_path %>%
     rmd_read_as_table() %>%
@@ -203,8 +203,8 @@ rmd_code_explode <- function(rmd_path = "README.Rmd",
 #' @export
 #'
 r_code_explode <- function(r_script_path = "docs/r_script_test.R",
-                           rmd_output = "explodedcode.Rmd",
-                           render = F){
+                           rmd_output = stringr::str_replace(rmd_path, "\\.R$|\\.r$", "_flipbook.Rmd"),
+                           render = TRUE){
 
   r_script_path %>%
     r_read_as_rmd_table() %>%

@@ -6,8 +6,8 @@
 \usage{
 r_code_explode(
   r_script_path = "docs/r_script_test.R",
-  rmd_output = "explodedcode.Rmd",
-  render = F
+  rmd_output = stringr::str_replace(rmd_path, "\\\\.R$|\\\\.r$", "_flipbook.Rmd"),
+  render = TRUE
 )
 }
 \arguments{
