@@ -7,7 +7,8 @@
 r_code_explode(
   r_script_path = "docs/r_script_test.R",
   rmd_output = stringr::str_replace(rmd_path, "\\\\.R$|\\\\.r$", "_flipbook.Rmd"),
-  render = TRUE
+  render = TRUE,
+  font_size = "70\%"
 )
 }
 \arguments{

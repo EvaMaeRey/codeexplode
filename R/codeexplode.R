@@ -1,8 +1,8 @@
 #' @importFrom rlang .data
 
-write_yaml <- function(){
+write_yaml <- function(font_size = "70%"){
 
-'---
+paste0('---
 title: "Exploded code"
 subtitle: "Using flipbookr and xaringan"
 author: "Me"
@@ -21,7 +21,7 @@ output:
 ```{r, include = F}
 # This is the recommended set up for flipbooks
 # you might think about setting cache to TRUE as you gain practice --- building flipbooks from scratch can be time consuming
-knitr::opts_chunk$set(fig.width = 6, message = F, warning = FALSE, comment = "", cache = F)
+knitr::opts_chunk$set(fig.width = 6, fig.height = 4, message = F, warning = FALSE, comment = "", cache = F)
 
 options(tibble.print_min = 55)
 options(knitr.duplicate.label = "allow")
@@ -30,7 +30,7 @@ options(width=300) # prevents data wrapping
 
 
 ```{css, eval = TRUE, echo = FALSE}
-.remark-code{line-height: 1.5; font-size: 40%}
+.remark-code{line-height: 1.5; font-size: ', font_size, '}
 
 @media print {
   .has-continuation {
@@ -51,7 +51,7 @@ code.r.hljs.remark-code:hover{
 }
 ```
 
-'
+')
 
 }
 
@@ -139,7 +139,10 @@ rmd_table_w_chunk_name_add_flip_inline <- function(rmd_table_w_chunk_name){
 
 }
 
-prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = "explodedcode.Rmd"){
+prepped_table_write_exploded_code_rmd <- function(prepped_table,
+                                                  rmd_output = "explodedcode.Rmd",
+                                                  font_size = "70%"
+                                                  ){
 
   prepped_table %>%
     rmd_table_remove_yaml() %>%
@@ -147,12 +150,14 @@ prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = "e
     paste(collapse = "\n") ->
   rmd_body
 
-  paste(write_yaml(), rmd_body, sep = "\n") %>%
+  paste(write_yaml(font_size = font_size), rmd_body, sep = "\n") %>%
     writeLines(con = rmd_output)
 
 }
 
-r_prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = "explodedcode.Rmd"){
+r_prepped_table_write_exploded_code_rmd <- function(prepped_table,
+                                                    rmd_output = "explodedcode.Rmd",
+                                                    font_size = "70%"){
 
   prepped_table %>%
     # rmd_table_remove_yaml() %>%
@@ -160,7 +165,7 @@ r_prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = 
     paste(collapse = "\n") ->
     rmd_body
 
-  paste(write_yaml(), rmd_body, sep = "\n") %>%
+  paste(write_yaml(font_size = font_size), rmd_body, sep = "\n") %>%
     writeLines(con = rmd_output)
 
 }
@@ -177,14 +182,16 @@ r_prepped_table_write_exploded_code_rmd <- function(prepped_table, rmd_output = 
 #'
 rmd_code_explode <- function(rmd_path = "README.Rmd",
                              rmd_output = stringr::str_replace(rmd_path, "\\.Rmd$|\\.rmd$", "_flipbook.Rmd"),
-                             render = TRUE){
+                             render = TRUE,
+                             font_size = "70%"){
 
   rmd_path %>%
     rmd_read_as_table() %>%
     rmd_table_find_chunk_name_set_include_to_false() %>%
     rmd_table_w_chunk_name_add_flip_inline() %>%
     rmd_table_remove_yaml() %>%  #needed?
-    prepped_table_write_exploded_code_rmd(rmd_output = rmd_output)
+    prepped_table_write_exploded_code_rmd(rmd_output = rmd_output,
+                                          font_size = font_size)
 
   if(render == TRUE){
   rmarkdown::render(rmd_output)
@@ -204,14 +211,15 @@ rmd_code_explode <- function(rmd_path = "README.Rmd",
 #'
 r_code_explode <- function(r_script_path = "docs/r_script_test.R",
                            rmd_output = stringr::str_replace(rmd_path, "\\.R$|\\.r$", "_flipbook.Rmd"),
-                           render = TRUE){
+                           render = TRUE, font_size = "70%"){
 
   r_script_path %>%
     r_read_as_rmd_table() %>%
     rmd_table_find_chunk_name_set_include_to_false() %>%
     rmd_table_w_chunk_name_add_flip_inline() %>%
     # rmd_table_remove_yaml() %>%
-    r_prepped_table_write_exploded_code_rmd(rmd_output = rmd_output)
+    r_prepped_table_write_exploded_code_rmd(rmd_output = rmd_output,
+                                            font_size = font_size)
 
   if(render == TRUE){
     rmarkdown::render(rmd_output)

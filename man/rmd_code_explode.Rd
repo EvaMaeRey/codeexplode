@@ -7,7 +7,8 @@
 rmd_code_explode(
   rmd_path = "README.Rmd",
   rmd_output = stringr::str_replace(rmd_path, "\\\\.Rmd$|\\\\.rmd$", "_flipbook.Rmd"),
-  render = TRUE
+  render = TRUE,
+  font_size = "70\%"
 )
 }
 \arguments{
